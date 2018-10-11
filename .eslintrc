@@ -1,22 +1,74 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "extends": [
+    "plugin:react/recommended",
+    "eslint:recommended"
+  ],
   "env": {
     "browser": true,
     "es6": true,
     "node": true
   },
-  "parser": "babel-eslint",
   "rules": {
+    "camelcase": [
+      0
+    ],
     "strict": 0,
     "no-console": 0,
-    "no-unused-vars": [0, { "varsIgnorePattern": "^h$" }]
+    "no-unused-vars": [
+      0,
+      {
+        "varsIgnorePattern": "^h$"
+      }
+    ]
   },
-
   "parserOptions": {
     "ecmaVersion": 2016,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
+  },
+  "globals": {
+    "document": false,
+    "window": false,
+    "ScrollMagic": false,
+    "TimelineLite": false,
+    "TimelineMax": false,
+    "TweenLite": false,
+    "TweenMax": false,
+    "Back": false,
+    "Bounce": false,
+    "Circ": false,
+    "Cubic": false,
+    "Ease": false,
+    "EaseLookup": false,
+    "Elastic": false,
+    "Expo": false,
+    "Linear": false,
+    "Power0": false,
+    "Power1": false,
+    "Power2": false,
+    "Power3": false,
+    "Power4": false,
+    "Quad": false,
+    "Quart": false,
+    "Quint": false,
+    "RoughEase": false,
+    "Sine": false,
+    "SlowMo": false,
+    "SteppedEase": false,
+    "Strong": false,
+    "Draggable": false,
+    "SplitText": false,
+    "VelocityTracker": false,
+    "CSSPlugin": false,
+    "ThrowPropsPlugin": false,
+    "BezierPlugin": false,
+    "fetch": false,
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "graphql": false
   }
 }

@@ -1,34 +1,31 @@
 import React, { Component } from 'react'
-import ScrollMagic from 'scrollmagic'
-import TweenMax from 'gsap'
-import 'scrollmagic/plugins/animation.gsap'
-import './node_modules/Scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators'
+import PropTypes from 'prop-types'
+import { Scene } from 'scrollmagic'
 import imgPen from '../images/img_pen-landscape.png'
 
 class Pen extends Component {
+  static contextTypes = {
+    scrollmagic: PropTypes.any,
+  }
   componentDidMount() {
     // move the pen body up to connect with the first part
     TweenMax.set('.part3', { y: -572 })
     // hide all headings and text
     TweenMax.set(['.parts h2, .parts p'], { autoAlpha: 0 })
     // create a tween that will move the pen body back to its original css position
-    const bodyToStart = TweenMax.to('.part3', 1, {
-      y: 0,
-      ease: 'Linear.easeNone',
-    })
-    // Init ScrollMagic Controller
-    const controller = new ScrollMagic.Controller()
-    // Create a Scene 1 - move pen body back to start - HOW?
+    this.animation = new TimelineMax({ paused: true })
+      .to('.part3', 1, {
+        y: 0
+      })
+    this.scene = new Scene({ triggerElement: this.node, triggerHook: 1, offset: 287, duration: 572 })
+    this.scene.indicatorName = 'ScrollDown'
+    this.scene.on('enter', () => { this.animation.play() })
 
-    const bodyToStartScene = new ScrollMagic.Scene({
-      triggerElement: '.part1',
-      triggerHook: 1,
-      offset: 287,
-      duration: 572,
-    })
-      .setTween(bodyToStart)
-      .addIndicators()
-      .addTo(controller)
+    if (process.env.NODE_ENV === 'development') {
+      this.scene.addIndicators({ name: this.scene.indicatorName })
+    }
+
+    this.scene.addTo(this.context.scrollmagic)
   }
   render() {
     return (
@@ -66,7 +63,7 @@ class Pen extends Component {
                 vehicula.{' '}
               </p>
               <ol className="parts">
-                <li className="part1">
+                <li className="part1" ref={c => { this.node = c }}>
                   <h2>Heading 1</h2>
                   <p>
                     Vivamus hendrerit in dui arcu sed erat molestie vehicula.
